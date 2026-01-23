@@ -1,0 +1,30 @@
+import java.util.*;
+
+class Solution {
+    public int maximizeSquareHoleArea(int n, int m, int[] hBars, int[] vBars) {
+        int maxHorizontal = longestConsecutiveRun(hBars);
+        int maxVertical = longestConsecutiveRun(vBars);
+        
+        int side = Math.min(maxHorizontal + 1, maxVertical + 1);
+        
+        return side * side;
+    }
+    
+    private int longestConsecutiveRun(int[] arr) {
+        if (arr.length == 0) return 0;
+        
+        Arrays.sort(arr);
+        int maxRun = 1;
+        int currentRun = 1;
+        
+        for (int i = 1; i < arr.length; i++) {
+            if (arr[i] == arr[i - 1] + 1) {
+                currentRun++;
+                maxRun = Math.max(maxRun, currentRun);
+            } else {
+                currentRun = 1;
+            }
+        }
+        return maxRun;
+    }
+}
