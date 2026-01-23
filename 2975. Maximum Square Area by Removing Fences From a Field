@@ -1,0 +1,42 @@
+import java.util.HashSet;
+import java.util.Set;
+
+class Solution {
+    public int maximizeSquareArea(int m, int n, int[] hFences, int[] vFences) {
+        final int MOD = 1_000_000_007;
+        
+        Set<Integer> horizontalDiffs = getAllPossibleDistances(m, hFences);
+        Set<Integer> verticalDiffs = getAllPossibleDistances(n, vFences);
+        
+        long maxSide = -1;
+        for (int h : horizontalDiffs) {
+            if (verticalDiffs.contains(h)) {
+                maxSide = Math.max(maxSide, h);
+            }
+        }
+        
+        if (maxSide == -1) return -1;
+        
+        long area = (maxSide % MOD) * (maxSide % MOD) % MOD;
+        return (int) area;
+    }
+    
+    private Set<Integer> getAllPossibleDistances(int boundary, int[] fences) {
+        Set<Integer> positions = new HashSet<>();
+        positions.add(1);
+        positions.add(boundary);
+        for (int f : fences) {
+            positions.add(f);
+        }
+        
+        Integer[] posArr = positions.toArray(new Integer[0]);
+        Set<Integer> diffs = new HashSet<>();
+        
+        for (int i = 0; i < posArr.length; i++) {
+            for (int j = i + 1; j < posArr.length; j++) {
+                diffs.add(Math.abs(posArr[i] - posArr[j]));
+            }
+        }
+        return diffs;
+    }
+}
