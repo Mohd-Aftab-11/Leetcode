@@ -1,0 +1,30 @@
+class Solution {
+    private static class Result {
+        TreeNode node;
+        int dist;
+        Result(TreeNode n, int d) {
+            node = n;
+            dist = d;
+        }
+    }
+    
+    public TreeNode subtreeWithAllDeepest(TreeNode root) {
+        return deep(root).node;
+    }
+    
+    private Result deep(TreeNode root) {
+        if (root == null) {
+            return new Result(null, 0);
+        }
+        Result left = deep(root.left);
+        Result right = deep(root.right);
+        
+        if (left.dist > right.dist) {
+            return new Result(left.node, left.dist + 1);
+        }if (left.dist < right.dist) {
+            return new Result(right.node, right.dist + 1);
+        }
+        
+        return new Result(root, left.dist + 1);
+    }
+}
