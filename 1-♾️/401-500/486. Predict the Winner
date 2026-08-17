@@ -8,7 +8,6 @@ class Solution {
         f = new int[n][n];
         return dfs(0, n - 1) >= 0;
     }
-
     private int dfs(int i, int j) {
         if (i > j) {
             return 0;
