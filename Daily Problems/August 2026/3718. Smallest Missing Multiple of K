@@ -4,6 +4,7 @@ class Solution {
         for (int x : nums) {
             s[x] = true;
         }
+
         for (int i = 1;; ++i) {
             int x = k * i;
             if (x >= s.length || !s[x]) {
